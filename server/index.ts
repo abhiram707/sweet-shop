@@ -41,7 +41,11 @@ async function startServer() {
     }));
     app.use(cors({
       origin: NODE_ENV === 'production' 
-        ? process.env.FRONTEND_URL || false
+        ? [
+            process.env.FRONTEND_URL,
+            'https://sweet-shop-abhiram707.vercel.app',
+            /.*\.vercel\.app$/
+          ].filter(Boolean)
         : true,
       credentials: true,
     }));

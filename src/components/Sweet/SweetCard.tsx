@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { ShoppingCart, Plus, Minus, Star, Clock, Award, Heart, Eye } from 'lucide-react';
 import { useCart } from '../../contexts/CartContext';
 import { Sweet } from '../../types';
+import { formatCurrency } from '../../utils/formatters';
 
 interface SweetCardProps {
   sweet: Sweet;
@@ -151,7 +152,7 @@ export const SweetCard: React.FC<SweetCardProps> = ({
         {/* Price badge */}
         <div className="absolute bottom-3 left-3">
           <span className="bg-white/90 text-gray-800 px-3 py-1 rounded-full text-lg font-bold backdrop-blur-sm">
-            ${sweet.price}
+            {formatCurrency(sweet.price)}
           </span>
         </div>
       </div>
@@ -192,7 +193,7 @@ export const SweetCard: React.FC<SweetCardProps> = ({
         <div className="flex justify-between items-center mb-4">
           <div className="flex flex-col">
             <span className="text-2xl font-bold text-gray-800">
-              ${sweet.price}
+              {formatCurrency(sweet.price)}
             </span>
             <span className="text-xs text-gray-500">
               {sweet.quantity} in stock

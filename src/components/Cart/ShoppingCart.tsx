@@ -3,6 +3,7 @@ import { X, Plus, Minus, Trash2, ShoppingBag, CreditCard } from 'lucide-react';
 import { useCart } from '../../contexts/CartContext';
 import { useApi } from '../../hooks/useApi';
 import { API_ENDPOINTS } from '../../config/api';
+import { formatCurrency, parsePrice } from '../../utils/formatters';
 
 const ShoppingCart: React.FC = () => {
   const {
@@ -118,7 +119,7 @@ const ShoppingCart: React.FC = () => {
                         </h3>
                         <p className="text-sm text-gray-600 mb-1">{item.sweet.category}</p>
                         <p className="text-sm font-semibold text-purple-700">
-                          ${item.sweet.price.toFixed(2)} each
+                          {formatCurrency(parsePrice(item.sweet.price))} each
                         </p>
                         
                         {/* Quantity Controls */}
@@ -147,7 +148,7 @@ const ShoppingCart: React.FC = () => {
                           
                           <div className="flex items-center space-x-3">
                             <span className="text-sm font-bold text-gray-900">
-                              ${(item.sweet.price * item.quantity).toFixed(2)}
+                              {formatCurrency(parsePrice(item.sweet.price) * item.quantity)}
                             </span>
                             <button
                               onClick={() => removeFromCart(item.sweet.id)}
@@ -172,7 +173,7 @@ const ShoppingCart: React.FC = () => {
               <div className="flex justify-between items-center bg-white/20 backdrop-blur-sm rounded-2xl p-4 border border-white/30">
                 <span className="text-lg font-semibold text-gray-900">Total:</span>
                 <span className="text-2xl font-bold bg-gradient-to-r from-purple-600 to-pink-600 bg-clip-text text-transparent">
-                  ${totalPrice.toFixed(2)}
+                  {formatCurrency(totalPrice)}
                 </span>
               </div>
               

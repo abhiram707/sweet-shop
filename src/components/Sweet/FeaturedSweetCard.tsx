@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { ShoppingCart, Star, Crown, Sparkles, Timer, Award } from 'lucide-react';
 import { useCart } from '../../contexts/CartContext';
 import { Sweet } from '../../types';
+import { formatCurrency } from '../../utils/formatters';
 
 interface FeaturedSweetCardProps {
   sweet: Sweet;
@@ -91,7 +92,7 @@ export const FeaturedSweetCard: React.FC<FeaturedSweetCardProps> = ({
             </div>
             {/* Floating price */}
             <div className="absolute -top-3 -right-3 bg-yellow-400 text-yellow-900 text-2xl font-bold px-4 py-2 rounded-full shadow-lg border-4 border-white">
-              ${sweet.price}
+              {formatCurrency(sweet.price)}
             </div>
           </div>
 

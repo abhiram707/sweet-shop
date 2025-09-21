@@ -5,6 +5,7 @@ import { useAuth } from '../../contexts/AuthContext';
 import { useCart } from '../../contexts/CartContext';
 import { useApi, useApiState } from '../../hooks/useApi';
 import { API_ENDPOINTS } from '../../config/api';
+import { sanitizeSweets } from '../../utils/formatters';
 import Header from '../Layout/Header';
 import SearchBar, { SearchFilters } from '../Sweet/SearchBar';
 import SweetCard from '../Sweet/SweetCard';
@@ -44,10 +45,10 @@ const Dashboard: React.FC<DashboardProps> = ({ onNavigateToAdmin }) => {
         if (searchFilters.maxPrice) params.append('maxPrice', searchFilters.maxPrice);
         
         const result = await apiCall(`${API_ENDPOINTS.SWEETS.SEARCH}?${params.toString()}`);
-        return result.sweets;
+        return sanitizeSweets(result.sweets || []);
       } else {
         const result = await apiCall(API_ENDPOINTS.SWEETS.LIST);
-        return result.sweets;
+        return sanitizeSweets(result.sweets || []);
       }
     }
   );

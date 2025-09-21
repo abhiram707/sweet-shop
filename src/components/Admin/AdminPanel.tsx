@@ -19,6 +19,7 @@ import { Sweet } from '../../types';
 import { useAuth } from '../../contexts/AuthContext';
 import { useApi, useApiState } from '../../hooks/useApi';
 import { API_ENDPOINTS } from '../../config/api';
+import { sanitizeSweets, formatCurrency } from '../../utils/formatters';
 import Header from '../Layout/Header';
 import SweetForm from '../Sweet/SweetForm';
 import RestockModal from '../Sweet/RestockModal';
@@ -41,7 +42,7 @@ const AdminPanel: React.FC<AdminPanelProps> = ({ onNavigateToDashboard }) => {
     [],
     async () => {
       const result = await apiCall(API_ENDPOINTS.SWEETS.LIST);
-      return result.sweets;
+      return sanitizeSweets(result.sweets || []);
     }
   );
 
@@ -364,7 +365,7 @@ const AdminPanel: React.FC<AdminPanelProps> = ({ onNavigateToDashboard }) => {
                         </span>
                       </td>
                       <td className="px-6 py-4 text-sm text-gray-900 font-medium">
-                        ${sweet.price.toFixed(2)}
+                        {formatCurrency(sweet.price)}
                       </td>
                       <td className="px-6 py-4 text-sm text-gray-900 font-medium">
                         {sweet.quantity}
