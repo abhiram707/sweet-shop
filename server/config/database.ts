@@ -1,4 +1,3 @@
-import Database from 'better-sqlite3';
 import path from 'path';
 import { fileURLToPath } from 'url';
 
@@ -14,18 +13,6 @@ const isProduction = !!process.env.DATABASE_URL &&
 let db: any;
 let _dbHelpers: any = null;
 
-if (isProduction) {
-  // Use PostgreSQL for production environments (Heroku, Render, etc.)
-  console.log('Using PostgreSQL database for production deployment');
-} else {
-  // Use SQLite for local development
-  const dbPath = path.join(__dirname, '../../database.sqlite');
-  db = Database(dbPath);
-  
-  // Enable foreign keys
-  db.pragma('foreign_keys = ON');
-}
-
 export { db };
 
 // Database helpers - will be initialized after database setup
@@ -40,40 +27,59 @@ export async function initDatabase() {
     
     if (isProduction) {
       // Use PostgreSQL for production environments (Heroku, Render, etc.)
+      console.log('Using PostgreSQL database for production deployment');
       const { initPostgresDatabase } = await import('./database-postgres.js');
       const result = await initPostgresDatabase();
       // For PostgreSQL, we'll use the helpers from the postgres module
       _dbHelpers = result.dbHelpers;
     } else {
-      // Use SQLite - create tables and helpers
-      // Create users table
-      db.exec(`
-        CREATE TABLE IF NOT EXISTS users (
-          id TEXT PRIMARY KEY DEFAULT (lower(hex(randomblob(16)))),
-          email TEXT UNIQUE NOT NULL,
-          password TEXT NOT NULL,
-          role TEXT DEFAULT 'customer' CHECK (role IN ('admin', 'customer')),
-          created_at DATETIME DEFAULT CURRENT_TIMESTAMP
-        )
-      `);
+      // Use SQLite for development - initialize database connection
+      try {
+        if (!db) {
+          console.log('Initializing SQLite database for development');
+          const Database = (await import('better-sqlite3')).default;
+          const dbPath = path.join(__dirname, '../../database.sqlite');
+          db = Database(dbPath);
+          
+          // Enable foreign keys
+          db.pragma('foreign_keys = ON');
+        }
 
-      // Create sweets table
-      db.exec(`
-        CREATE TABLE IF NOT EXISTS sweets (
-          id TEXT PRIMARY KEY DEFAULT (lower(hex(randomblob(16)))),
-          name TEXT NOT NULL,
-          category TEXT NOT NULL,
-          price DECIMAL(10,2) NOT NULL CHECK (price >= 0),
-          quantity INTEGER DEFAULT 0 CHECK (quantity >= 0),
-          description TEXT,
-          image_url TEXT,
-          created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
-          updated_at DATETIME DEFAULT CURRENT_TIMESTAMP
-        )
-      `);
+        // Create users table
+        db.exec(`
+          CREATE TABLE IF NOT EXISTS users (
+            id TEXT PRIMARY KEY DEFAULT (lower(hex(randomblob(16)))),
+            email TEXT UNIQUE NOT NULL,
+            password TEXT NOT NULL,
+            role TEXT DEFAULT 'customer' CHECK (role IN ('admin', 'customer')),
+            created_at DATETIME DEFAULT CURRENT_TIMESTAMP
+          )
+        `);
 
-      // Initialize helpers after tables are created
-      _dbHelpers = createDbHelpers();
+        // Create sweets table
+        db.exec(`
+          CREATE TABLE IF NOT EXISTS sweets (
+            id TEXT PRIMARY KEY DEFAULT (lower(hex(randomblob(16)))),
+            name TEXT NOT NULL,
+            category TEXT NOT NULL,
+            price DECIMAL(10,2) NOT NULL CHECK (price >= 0),
+            quantity INTEGER DEFAULT 0 CHECK (quantity >= 0),
+            description TEXT,
+            image_url TEXT,
+            created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+            updated_at DATETIME DEFAULT CURRENT_TIMESTAMP
+          )
+        `);
+
+        // Initialize helpers after tables are created
+        _dbHelpers = createDbHelpers();
+      } catch (error) {
+        console.error('SQLite not available, falling back to PostgreSQL:', error instanceof Error ? error.message : String(error));
+        // Fallback to PostgreSQL if SQLite fails
+        const { initPostgresDatabase } = await import('./database-postgres.js');
+        const result = await initPostgresDatabase();
+        _dbHelpers = result.dbHelpers;
+      }
     }
 
     // Insert default admin user for both SQLite and PostgreSQL
