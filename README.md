@@ -2,7 +2,7 @@
 
 A full-stack e-commerce application for managing a sweet shop inventory with user authentication, role-based access control, and real-time inventory management. Built with modern web technologies and deployed to production.
 
-![Sweet Shop Demo](https://images.unsplash.com/photo-1548909976-47b4350efdae?w=800&h=400&fit=crop)
+![Sweet Shop Demo]([https://sweet-shop-one.vercel.app/]))
 
 ## 🚀 Live Application
 
@@ -213,54 +213,25 @@ sweet-shop-management-system/
 
 ## 📱 Screenshots
 
-### 🔐 Authentication Interface
-![Sweet Shop Login](https://images.unsplash.com/photo-1558618047-3c8c76ca7d13?w=800&h=600&fit=crop)
+ Screenshots  
 
-**Live Authentication Features:**
-- **Beautiful Login Form**: Gradient design with "Welcome Back!" messaging
-- **Registration System**: "Join Sweet Shop!" with role selection (Customer/Admin) 
-- **Demo Access**: "Try Demo Login" button for easy testing
-- **Responsive Design**: Works perfectly on all device sizes
-- **Clean UI**: Modern glassmorphism effects with intuitive navigation
+### 🔐 Authentication & Landing Page  
+![Landing Page](assets/landing-page.png)
 
-### 🛒 Customer Shopping Experience  
-![Sweet Shop Products](https://images.unsplash.com/photo-1560472354-b33ff0c44a43?w=800&h=600&fit=crop)
+---
 
-**Customer Interface Features:**
-- **Product Grid**: Beautiful cards showing Red Velvet Cupcakes ($3.49), Gummy Bears ($1.99), Chocolate Chip Cookies ($2.99)
-- **Real-time Stock**: Live availability indicators with stock levels (30, 50, 75 items)
-- **Shopping Cart**: Functional cart with "Rainbow Sour Strips" showing quantity controls and $2.49 total
-- **Add to Cart**: Purple gradient buttons with smooth interactions
-- **Star Ratings**: Customer reviews displayed for each product
+### 🛒 Product Showcase  
+![Products](assets/products.png)
 
-### 🎛️ Admin Management Panel
-![Admin Dashboard](https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c?w=800&h=600&fit=crop)
+---
 
-**Admin Dashboard Features:**
-- **Complete Inventory View**: Professional table showing all 8 products
-- **Category Management**: Organized by Sour Candy, Cookies, Cupcakes, Gummies
-- **Stock Monitoring**: Real-time stock levels (60, 50, 30, 75 items)
-- **Action Controls**: Edit, restock, and delete buttons for each product
-- **Search & Filter**: "Search products..." with category filtering
-- **Status Indicators**: "In Stock" badges with color coding
+### 🛍️ Shopping Cart  
+![Shopping Cart](assets/cart.png)
 
-### 📱 Mobile Responsive Design
-![Mobile Sweet Shop](https://images.unsplash.com/photo-1558618047-3c8c76ca7d13?w=400&h=600&fit=crop)
+---
 
-**Mobile Optimization:**
-- **Touch-Friendly**: Large buttons optimized for finger navigation
-- **Responsive Layout**: Perfect adaptation to all screen sizes
-- **Fast Loading**: Optimized images and efficient API calls
-- **Full Functionality**: Complete feature parity with desktop
-
-### 🎯 **Live Application Screenshots**
-**From actual deployment at https://sweet-shop-one.vercel.app:**
-
-1. **Landing Page**: Cyan gradient background with "Welcome to Sweet Paradise!" and feature highlights
-2. **Product Showcase**: Grid displaying actual products with real pricing and stock levels
-3. **Cart Functionality**: Working shopping cart with quantity controls and purchase totals
-4. **Admin Interface**: Professional management dashboard with full CRUD operations
-5. **Authentication**: Smooth login/register flow with role-based access control
+### 🛠️ Admin Panel  
+![Admin Panel](assets/admin-panel.png)
 
 ## 🔧 Development Workflow
 
