@@ -38,7 +38,9 @@ export async function initDatabase() {
         if (!db) {
           console.log('Initializing SQLite database for development');
           try {
-            const Database = (await import('better-sqlite3')).default;
+            // Use dynamic import with string to avoid TypeScript compile-time resolution
+            const betterSqlite3Module = await import('better-sqlite3' as string);
+            const Database = betterSqlite3Module.default;
             const dbPath = path.join(__dirname, '../../database.sqlite');
             db = Database(dbPath);
             
