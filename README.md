@@ -218,6 +218,12 @@ sweet-shop-management-system/
 
 ---
 
+### 📊 Dashboard  
+![Dashboard](assets/dashboard.png)
+
+---
+
+
 ### 🛒 Product Showcase  
 ![Products](assets/products.png)
 
