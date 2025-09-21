@@ -12,6 +12,19 @@ export interface AuthenticatedRequest extends Request {
   };
 }
 
+// Helper function to handle both SQLite and PostgreSQL calls
+async function callDbHelper(helper: any, ...args: any[]): Promise<any> {
+  // Check if it's a PostgreSQL async function
+  if (typeof helper === 'function') {
+    return await helper(...args);
+  }
+  // SQLite prepared statement
+  if (helper && typeof helper.get === 'function') {
+    return helper.get(...args);
+  }
+  throw new Error('Invalid database helper');
+}
+
 export const authenticateToken = async (
   req: AuthenticatedRequest,
   res: Response,
@@ -28,7 +41,7 @@ export const authenticateToken = async (
     const decoded = jwt.verify(token, JWT_SECRET) as any;
     
     // Verify user still exists in database
-    const user = dbHelpers.findUserById.get(decoded.id) as any;
+    const user = await callDbHelper(dbHelpers.findUserById, decoded.id);
 
     if (!user) {
       return res.status(401).json({ error: 'Invalid token' });

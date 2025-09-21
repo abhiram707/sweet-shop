@@ -135,10 +135,10 @@ async function initializeTables(client: PoolClient): Promise<void> {
           FOR EACH ROW EXECUTE FUNCTION update_updated_at_column()
     `);
 
-    // Insert default admin user (password: admin123 - $2a$10$8Wsa.vLhQV8gXl8xhz.Bh.2y1xMJkmBRZQK9cZn.KQ7vgXjN7zY7i)
+    // Insert default admin user (password: admin123)
     await client.query(`
       INSERT INTO users (email, password, role) VALUES 
-        ('admin@sweetshop.com', '$2a$10$8Wsa.vLhQV8gXl8xhz.Bh.2y1xMJkmBRZQK9cZn.KQ7vgXjN7zY7i', 'admin')
+        ('admin@sweetshop.com', '$2a$10$JEqcXbwFi4A3olazoMtyCeGV9i2bkg89ZOTu5euFPtUWxHdQAhtx6', 'admin')
       ON CONFLICT (email) DO NOTHING
     `);
 
