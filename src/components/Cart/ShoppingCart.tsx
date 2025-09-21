@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { X, Plus, Minus, Trash2, ShoppingBag, CreditCard } from 'lucide-react';
 import { useCart } from '../../contexts/CartContext';
 import { useApi } from '../../hooks/useApi';
+import { API_ENDPOINTS } from '../../config/api';
 
 const ShoppingCart: React.FC = () => {
   const {
@@ -25,7 +26,7 @@ const ShoppingCart: React.FC = () => {
     try {
       // Process each item in the cart
       for (const item of items) {
-        await apiCall(`/api/sweets/${item.sweet.id}/purchase`, {
+        await apiCall(API_ENDPOINTS.SWEETS.PURCHASE(item.sweet.id), {
           method: 'POST',
           body: JSON.stringify({ quantity: item.quantity }),
         });

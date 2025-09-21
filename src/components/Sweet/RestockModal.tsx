@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { X, Plus } from 'lucide-react';
 import { Sweet } from '../../types';
 import { useApi } from '../../hooks/useApi';
+import { API_ENDPOINTS } from '../../config/api';
 
 interface RestockModalProps {
   sweet: Sweet;
@@ -28,7 +29,7 @@ const RestockModal: React.FC<RestockModalProps> = ({ sweet, onClose, onSuccess }
     setError('');
 
     try {
-      await apiCall(`/api/sweets/${sweet.id}/restock`, {
+      await apiCall(API_ENDPOINTS.SWEETS.RESTOCK(sweet.id), {
         method: 'POST',
         body: JSON.stringify({ quantity: restockQuantity }),
       });

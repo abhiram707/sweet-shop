@@ -18,6 +18,7 @@ import {
 import { Sweet } from '../../types';
 import { useAuth } from '../../contexts/AuthContext';
 import { useApi, useApiState } from '../../hooks/useApi';
+import { API_ENDPOINTS } from '../../config/api';
 import Header from '../Layout/Header';
 import SweetForm from '../Sweet/SweetForm';
 import RestockModal from '../Sweet/RestockModal';
@@ -39,7 +40,7 @@ const AdminPanel: React.FC<AdminPanelProps> = ({ onNavigateToDashboard }) => {
   const { data: sweets, loading, error, execute: fetchSweets } = useApiState<Sweet[]>(
     [],
     async () => {
-      const result = await apiCall('/api/sweets');
+      const result = await apiCall(API_ENDPOINTS.SWEETS.LIST);
       return result.sweets;
     }
   );
@@ -56,7 +57,7 @@ const AdminPanel: React.FC<AdminPanelProps> = ({ onNavigateToDashboard }) => {
   const handleDelete = async (sweet: Sweet) => {
     if (window.confirm(`Are you sure you want to delete "${sweet.name}"?`)) {
       try {
-        await apiCall(`/api/sweets/${sweet.id}`, { method: 'DELETE' });
+        await apiCall(API_ENDPOINTS.SWEETS.DELETE(sweet.id), { method: 'DELETE' });
         fetchSweets();
       } catch (error) {
         console.error('Failed to delete sweet:', error);

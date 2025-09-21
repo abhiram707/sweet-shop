@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { X, Save, Plus, ImageIcon } from 'lucide-react';
 import { Sweet } from '../../types';
 import { useApi } from '../../hooks/useApi';
+import { API_ENDPOINTS } from '../../config/api';
 
 // Suggested images for different categories
 const suggestedImages = {
@@ -127,12 +128,12 @@ const SweetForm: React.FC<SweetFormProps> = ({ sweet, onClose, onSuccess }) => {
       };
 
       if (sweet) {
-        await apiCall(`/api/sweets/${sweet.id}`, {
+        await apiCall(API_ENDPOINTS.SWEETS.UPDATE(sweet.id), {
           method: 'PUT',
           body: JSON.stringify(data),
         });
       } else {
-        await apiCall('/api/sweets', {
+        await apiCall(API_ENDPOINTS.SWEETS.CREATE, {
           method: 'POST',
           body: JSON.stringify(data),
         });
