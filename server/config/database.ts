@@ -95,17 +95,26 @@ export async function initDatabase() {
     // Insert default admin user for both SQLite and PostgreSQL
     if (!isProduction) {
       // SQLite admin user setup
-      const adminExists = _dbHelpers.findUserByEmail.get('admin@sweetshop.com');
+      const adminExists = await (typeof _dbHelpers.findUserByEmail === 'function' 
+        ? _dbHelpers.findUserByEmail('admin@sweetshop.com')
+        : _dbHelpers.findUserByEmail.get('admin@sweetshop.com'));
+      
       if (!adminExists) {
         // Password hash for "admin123"
         const bcryptModule = await import('bcryptjs');
         const bcrypt = bcryptModule.default || bcryptModule;
         const hashedPassword = await bcrypt.hash('admin123', 10);
         
-        db.prepare(`
-          INSERT INTO users (email, password, role)
-          VALUES (?, ?, 'admin')
-        `).run('admin@sweetshop.com', hashedPassword);
+        if (typeof _dbHelpers.createUser === 'function') {
+          // PostgreSQL
+          await _dbHelpers.createUser('admin@sweetshop.com', hashedPassword, 'admin');
+        } else {
+          // SQLite
+          db.prepare(`
+            INSERT INTO users (email, password, role)
+            VALUES (?, ?, 'admin')
+          `).run('admin@sweetshop.com', hashedPassword);
+        }
       }
 
       // Insert sample sweets data for SQLite

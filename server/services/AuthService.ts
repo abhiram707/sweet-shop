@@ -5,13 +5,29 @@ import { AuthRequest, RegisterRequest, User } from '../types/index.js';
 
 const JWT_SECRET = process.env.JWT_SECRET || 'your-secret-key';
 
+// Helper function to handle both SQLite and PostgreSQL calls
+async function callDbHelper(helper: any, ...args: any[]): Promise<any> {
+  // Check if it's a PostgreSQL async function
+  if (typeof helper === 'function') {
+    return await helper(...args);
+  }
+  // SQLite prepared statement
+  if (helper && typeof helper.get === 'function') {
+    return helper.get(...args);
+  }
+  if (helper && typeof helper.run === 'function') {
+    return helper.run(...args);
+  }
+  throw new Error('Invalid database helper');
+}
+
 export class AuthService {
   static async register(userData: RegisterRequest): Promise<{ user: Omit<User, 'password'>; token: string }> {
     const { email, password, role = 'customer' } = userData;
 
     try {
       // Check if user already exists
-      const existingUser = dbHelpers.findUserByEmail.get(email) as any;
+      const existingUser = await callDbHelper(dbHelpers.findUserByEmail, email);
       if (existingUser) {
         throw new Error('User already exists with this email');
       }
@@ -20,7 +36,7 @@ export class AuthService {
       const hashedPassword = await bcrypt.hash(password, 10);
 
       // Create user
-      const user = dbHelpers.createUser.get(email, hashedPassword, role) as any;
+      const user = await callDbHelper(dbHelpers.createUser, email, hashedPassword, role);
       if (!user) {
         throw new Error('Failed to create user');
       }
@@ -43,7 +59,7 @@ export class AuthService {
 
     try {
       // Find user
-      const user = dbHelpers.findUserByEmail.get(email) as any;
+      const user = await callDbHelper(dbHelpers.findUserByEmail, email);
       if (!user) {
         throw new Error('Invalid credentials');
       }

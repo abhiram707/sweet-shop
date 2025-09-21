@@ -137,8 +137,8 @@ export function getDbHelpers(): DbHelpers {
       const client = await pool.connect();
       try {
         const result = await client.query(
-          'UPDATE sweets SET name = $1, category = $2, price = $3, quantity = $4, description = $5, image_url = $6, updated_at = CURRENT_TIMESTAMP WHERE id = $7 RETURNING *',
-          [name, category, price, quantity, description, imageUrl, id]
+          'UPDATE sweets SET name = $2, category = $3, price = $4, quantity = $5, description = $6, image_url = $7, updated_at = CURRENT_TIMESTAMP WHERE id = $1 RETURNING *',
+          [id, name, category, price, quantity, description, imageUrl]
         );
         return result.rows[0];
       } finally {
