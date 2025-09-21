@@ -214,28 +214,28 @@ sweet-shop-management-system/
  Screenshots  
 
 ### 🔐 Authentication & Landing Page  
-![Landing Page](assets/landing-page.png)
+![Landing Page](src/assets/landing-page.png)
 
 ---
 
 ### 📊 Dashboard  
-![Dashboard](assets/dashboard.png)
+![Dashboard](src/assets/dashboard.png)
 
 ---
 
 
 ### 🛒 Product Showcase  
-![Products](assets/products.png)
+![Products](src/assets/products.png)
 
 ---
 
 ### 🛍️ Shopping Cart  
-![Shopping Cart](assets/cart.png)
+![Shopping Cart](src/assets/cart.png)
 
 ---
 
 ### 🛠️ Admin Panel  
-![Admin Panel](assets/admin-panel.png)
+![Admin Panel](src/assets/admin-panel.png)
 
 ## 🔧 Development Workflow
 
