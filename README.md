@@ -2,8 +2,6 @@
 
 A full-stack e-commerce application for managing a sweet shop inventory with user authentication, role-based access control, and real-time inventory management. Built with modern web technologies and deployed to production.
 
-![Sweet Shop Demo]([https://sweet-shop-one.vercel.app/]))
-
 ## 🚀 Live Application
 
 **🌐 Production Deployment:**
