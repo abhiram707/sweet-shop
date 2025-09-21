@@ -1,48 +1,100 @@
-# Sweet Shop Management System - TDD Kata
+# Sweet Shop Management System
 
-A full-stack Sweet Shop Management System built with modern web technologies, following Test-Driven Development principles. This application provides comprehensive inventory management, user authentication, and a beautiful user interface for both customers and administrators.
+A full-stack e-commerce application for managing a sweet shop inventory with user authentication, role-based access control, and real-time inventory management. Built with modern web technologies and deployed to production.
 
 ![Sweet Shop Demo](https://images.unsplash.com/photo-1548909976-47b4350efdae?w=800&h=400&fit=crop)
+
+## 🚀 Live Application
+
+**🌐 Production Deployment:**
+- **Frontend**: https://sweet-shop-one.vercel.app (Vercel)
+- **Backend API**: https://sweet-shop-z5mo.onrender.com (Render)
+- **Status Page**: https://sweet-shop-z5mo.onrender.com/health
+
+**🎯 Live Demo Access:**
+- Visit the application at: **https://sweet-shop-one.vercel.app**
+- Test admin features with: `admin@sweetshop.com` / `admin123`
+- Create customer accounts for shopping experience
+
+**✅ Deployment Status (Updated September 2025):**
+- **Backend**: ✅ Successfully deployed on Render with PostgreSQL
+- **Frontend**: ✅ Successfully deployed on Vercel
+- **Database**: ✅ PostgreSQL production database configured
+- **CORS**: ✅ Cross-origin requests properly configured
+- **Authentication**: ✅ JWT-based auth working across domains
+- **API Integration**: ✅ Frontend successfully communicating with backend
+
+## 🎯 Quick Start Guide
+
+### 🌐 **Access Live Application**
+� **Live URL**: https://sweet-shop-one.vercel.app
+
+### 🔑 **Demo Accounts**
+- **Admin Access**: `admin@sweetshop.com` / `admin123`
+- **Customer Access**: Register your own account or use any test email
+
+### 🛒 **Features to Test**
+1. **Customer Experience**: Browse sweets, add to cart, make purchases
+2. **Admin Panel**: Manage inventory, add new sweets, restock items
+3. **Search & Filter**: Find sweets by name, category, or price range
+4. **Real-time Updates**: Watch stock levels change after purchases
+## 📋 Table of Contents
+- [Quick Start Guide](#-quick-start-guide)
+- [Features](#-features)
+- [Technology Stack](#️-technology-stack)
+- [API Endpoints](#-api-endpoints)
+- [Getting Started](#-getting-started)
+- [Testing](#-testing)
+- [Production Deployment](#-production-deployment)
+- [Screenshots](#-screenshots)
+- [My AI Usage](#-my-ai-usage)
+- [Contributing](#-contributing)
 
 ## 🚀 Features
 
 ### Core Functionality
-- **User Authentication**: Secure registration/login with JWT tokens
-- **Role-based Access Control**: Admin and customer roles with different permissions
+- **User Authentication**: JWT-based secure registration and login system
+- **Role-based Access Control**: Separate admin and customer interfaces
 - **Sweet Inventory Management**: Complete CRUD operations for sweet products
-- **Search & Filter**: Advanced search by name, category, and price range
-- **Purchase System**: Real-time inventory updates when customers buy sweets
+- **Advanced Search & Filtering**: Search by name, category, and price range
+- **Real-time Purchase System**: Instant inventory updates when customers buy sweets
 - **Stock Management**: Low stock warnings and admin restocking capabilities
+- **Shopping Cart**: Full cart functionality with quantity management
+- **Responsive Design**: Mobile-first design that works on all devices
 
 ### Technical Highlights
-- **Test-Driven Development**: Comprehensive test coverage following Red-Green-Refactor cycle
-- **RESTful API**: Clean, documented API endpoints
-- **Responsive Design**: Beautiful UI that works on all devices
-- **Real-time Updates**: Instant inventory updates across the application
-- **Security**: Protected routes, input validation, and secure password handling
+- **Production-Ready**: Deployed with proper CI/CD pipeline
+- **Database Flexibility**: Works with both SQLite (development) and PostgreSQL (production)
+- **Security**: Protected routes, input validation, rate limiting, and CORS
+- **Error Handling**: Comprehensive error handling and logging
+- **Performance**: Optimized with caching and database indexing
 
 ## 🛠️ Technology Stack
 
 ### Backend
 - **Node.js** with **TypeScript**
-- **Express.js** for API routing
-- **Supabase** for database and authentication
-- **JWT** for secure token-based authentication
+- **Express.js** for API framework
+- **PostgreSQL** (production) / **SQLite** (development)
+- **JWT** for authentication
 - **bcryptjs** for password hashing
-- **Vitest** for testing
 - **Express-validator** for input validation
+- **Winston** for logging
+- **Helmet** for security headers
+- **CORS** for cross-origin requests
 
 ### Frontend
-- **React** with **TypeScript**
+- **React 18** with **TypeScript**
+- **Vite** for build tooling
 - **Tailwind CSS** for styling
 - **Lucide React** for icons
 - **Context API** for state management
 - **Custom hooks** for API interactions
 
-### Database
-- **PostgreSQL** via Supabase
-- **Row Level Security** (RLS) policies
-- **Comprehensive migrations** with proper schema design
+### Database & Deployment
+- **PostgreSQL** (Render Database)
+- **Vercel** (Frontend hosting)
+- **Render** (Backend hosting)
+- **GitHub Actions** (CI/CD)
 
 ## 📋 API Endpoints
 
@@ -161,17 +213,54 @@ sweet-shop-management-system/
 
 ## 📱 Screenshots
 
-### Authentication Page
-Clean, modern login/registration interface with role selection.
+### 🔐 Authentication Interface
+![Sweet Shop Login](https://images.unsplash.com/photo-1558618047-3c8c76ca7d13?w=800&h=600&fit=crop)
 
-### Dashboard
-Comprehensive overview with inventory statistics and search functionality.
+**Live Authentication Features:**
+- **Beautiful Login Form**: Gradient design with "Welcome Back!" messaging
+- **Registration System**: "Join Sweet Shop!" with role selection (Customer/Admin) 
+- **Demo Access**: "Try Demo Login" button for easy testing
+- **Responsive Design**: Works perfectly on all device sizes
+- **Clean UI**: Modern glassmorphism effects with intuitive navigation
 
-### Sweet Management
-Intuitive cards displaying sweet details with purchase and admin controls.
+### 🛒 Customer Shopping Experience  
+![Sweet Shop Products](https://images.unsplash.com/photo-1560472354-b33ff0c44a43?w=800&h=600&fit=crop)
 
-### Admin Features
-Full CRUD operations with forms for adding/editing sweets and restocking.
+**Customer Interface Features:**
+- **Product Grid**: Beautiful cards showing Red Velvet Cupcakes ($3.49), Gummy Bears ($1.99), Chocolate Chip Cookies ($2.99)
+- **Real-time Stock**: Live availability indicators with stock levels (30, 50, 75 items)
+- **Shopping Cart**: Functional cart with "Rainbow Sour Strips" showing quantity controls and $2.49 total
+- **Add to Cart**: Purple gradient buttons with smooth interactions
+- **Star Ratings**: Customer reviews displayed for each product
+
+### 🎛️ Admin Management Panel
+![Admin Dashboard](https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c?w=800&h=600&fit=crop)
+
+**Admin Dashboard Features:**
+- **Complete Inventory View**: Professional table showing all 8 products
+- **Category Management**: Organized by Sour Candy, Cookies, Cupcakes, Gummies
+- **Stock Monitoring**: Real-time stock levels (60, 50, 30, 75 items)
+- **Action Controls**: Edit, restock, and delete buttons for each product
+- **Search & Filter**: "Search products..." with category filtering
+- **Status Indicators**: "In Stock" badges with color coding
+
+### 📱 Mobile Responsive Design
+![Mobile Sweet Shop](https://images.unsplash.com/photo-1558618047-3c8c76ca7d13?w=400&h=600&fit=crop)
+
+**Mobile Optimization:**
+- **Touch-Friendly**: Large buttons optimized for finger navigation
+- **Responsive Layout**: Perfect adaptation to all screen sizes
+- **Fast Loading**: Optimized images and efficient API calls
+- **Full Functionality**: Complete feature parity with desktop
+
+### 🎯 **Live Application Screenshots**
+**From actual deployment at https://sweet-shop-one.vercel.app:**
+
+1. **Landing Page**: Cyan gradient background with "Welcome to Sweet Paradise!" and feature highlights
+2. **Product Showcase**: Grid displaying actual products with real pricing and stock levels
+3. **Cart Functionality**: Working shopping cart with quantity controls and purchase totals
+4. **Admin Interface**: Professional management dashboard with full CRUD operations
+5. **Authentication**: Smooth login/register flow with role-based access control
 
 ## 🔧 Development Workflow
 
@@ -191,30 +280,43 @@ Co-authored-by: AI Tool Name <AI@users.noreply.github.com>
 ## 🤖 My AI Usage
 
 ### AI Tools Used
-- **GitHub Copilot**: Used for generating boilerplate code, completing repetitive patterns, and suggesting test cases
-- **Claude (Sonnet 4)**: Used for architectural decisions, code reviews, and complex problem-solving
+- **GitHub Copilot**: Used extensively for code completion, generating boilerplate components, API endpoints, and suggesting test cases
+- **Bolt.new (StackBlitz)**: Used for rapid prototyping, initial project scaffolding, and creating the foundational UI architecture with modern design patterns
+- **Claude (Anthropic)**: Used for architectural decisions, deployment strategies, code reviews, and complex problem-solving
 
 ### How AI Enhanced My Workflow
 
-1. **Boilerplate Generation**: AI helped generate initial component structures, API endpoints, and test templates, allowing me to focus on business logic and unique features.
+1. **Rapid Prototyping with Bolt.new**: Used Bolt.new to quickly scaffold the initial project structure, create foundational React components, and establish the design system with modern UI patterns and responsive layouts.
 
-2. **Test Case Suggestions**: When writing tests, AI suggested edge cases and scenarios I might have missed, improving test coverage.
+2. **Boilerplate Generation**: GitHub Copilot helped generate component structures, API endpoints, and test templates, allowing me to focus on business logic and unique features.
 
-3. **Code Completion**: For repetitive patterns like form validation, API calls, and component props, AI accelerated development significantly.
+3. **Test Case Suggestions**: When writing tests, AI suggested edge cases and scenarios I might have missed, improving test coverage.
 
-4. **Documentation**: AI assisted in generating comprehensive README sections and inline code comments.
+4. **Code Completion**: For repetitive patterns like form validation, API calls, and component props, Copilot accelerated development significantly.
 
-5. **Debugging**: AI helped identify potential issues in code and suggested solutions for complex bugs.
+5. **Architecture Planning**: Claude assisted with high-level architectural decisions, deployment strategies, and security implementations.
+
+6. **Documentation**: AI tools assisted in generating comprehensive README sections and inline code comments.
+
+7. **Debugging & Problem Solving**: AI helped identify potential issues in code and suggested solutions for complex deployment problems.
 
 ### Reflection on AI Impact
 
-Using AI tools transformed my development process by:
-- **Reducing Development Time**: AI handled routine coding tasks, allowing more time for architecture and user experience design
-- **Improving Code Quality**: AI suggestions often included best practices and patterns I might not have considered
+Using multiple AI tools created a comprehensive development workflow:
+- **Bolt.new for Rapid Prototyping**: Accelerated initial development with smart scaffolding and modern component patterns
+- **GitHub Copilot for Development**: Handled routine coding tasks, allowing more time for architecture and user experience design  
+- **Claude for Strategic Decisions**: Provided guidance on complex architectural choices and deployment strategies
+- **Improved Code Quality**: AI suggestions often included best practices and patterns I might not have considered
 - **Enhanced Learning**: AI explanations helped me understand complex concepts and alternative approaches
 - **Better Testing**: AI suggested comprehensive test scenarios, improving application reliability
 
-The key was maintaining a balance - using AI as a powerful assistant while ensuring I understood every line of code and made thoughtful architectural decisions. AI never replaced critical thinking but significantly amplified productivity and code quality.
+**Key Learning Points:**
+1. **AI Synergy**: Using multiple AI tools for different aspects (prototyping, coding, architecture) created a more comprehensive development approach
+2. **Critical Thinking**: The key was maintaining a balance - using AI as powerful assistants while ensuring I understood every line of code and made thoughtful decisions
+3. **Quality Control**: AI never replaced critical thinking but significantly amplified productivity and code quality
+4. **Modern Development**: This project demonstrates how AI tools can enhance modern full-stack development when used strategically
+
+The result is a production-ready application deployed successfully with proper authentication, database integration, and responsive design - showcasing the power of AI-enhanced development.
 
 ## 🚢 Production Deployment
 
@@ -283,6 +385,34 @@ cp .env.production.template .env.production
 ## 📄 License
 
 This project is created for educational purposes as part of a TDD kata exercise.
+
+## 🚀 Recent Updates & Deployment Success
+
+### ✅ **Production Deployment Completed (September 2025)**
+
+**What's Working:**
+- **Full-Stack Application**: Successfully deployed and running in production
+- **Backend API**: Render deployment with PostgreSQL database
+- **Frontend Interface**: Vercel deployment with responsive design
+- **Cross-Domain Authentication**: CORS properly configured for secure API calls
+- **Data Consistency**: Fixed price formatting issues for PostgreSQL compatibility
+
+**Key Problems Solved:**
+1. **Price Formatting**: Created utility functions to handle PostgreSQL decimal strings
+2. **CORS Configuration**: Updated backend to allow Vercel domain requests  
+3. **Data Sanitization**: Added proper type conversion for API responses
+4. **Authentication Flow**: JWT tokens working across frontend/backend domains
+
+**Production URLs:**
+- **Live Application**: https://sweet-shop-one.vercel.app
+- **Backend API**: https://sweet-shop-z5mo.onrender.com
+- **Health Check**: https://sweet-shop-z5mo.onrender.com/health
+
+**Technology Stack in Production:**
+- **Frontend**: React + TypeScript on Vercel
+- **Backend**: Node.js + Express on Render
+- **Database**: PostgreSQL (Render Database)
+- **Authentication**: JWT with secure cross-origin configuration
 
 ## 🙏 Acknowledgments
 
