@@ -37,12 +37,20 @@ export async function initDatabase() {
       try {
         if (!db) {
           console.log('Initializing SQLite database for development');
-          const Database = (await import('better-sqlite3')).default;
-          const dbPath = path.join(__dirname, '../../database.sqlite');
-          db = Database(dbPath);
-          
-          // Enable foreign keys
-          db.pragma('foreign_keys = ON');
+          try {
+            const Database = (await import('better-sqlite3')).default;
+            const dbPath = path.join(__dirname, '../../database.sqlite');
+            db = Database(dbPath);
+            
+            // Enable foreign keys
+            db.pragma('foreign_keys = ON');
+          } catch (importError) {
+            console.log('better-sqlite3 not available, falling back to PostgreSQL');
+            const { initPostgresDatabase } = await import('./database-postgres.js');
+            const result = await initPostgresDatabase();
+            _dbHelpers = result.dbHelpers;
+            return;
+          }
         }
 
         // Create users table

@@ -1,6 +1,5 @@
 import { Request, Response, NextFunction } from 'express';
 import { validationResult } from 'express-validator';
-import DOMPurify from 'isomorphic-dompurify';
 
 // Validation error handler
 export const handleValidationErrors = (req: Request, res: Response, next: NextFunction) => {
@@ -23,19 +22,23 @@ export const handleValidationErrors = (req: Request, res: Response, next: NextFu
 };
 
 // Input sanitization middleware
+// Simple sanitization function to remove HTML/script tags
+const sanitizeString = (str: string): string => {
+  return str
+    .replace(/<script\b[^<]*(?:(?!<\/script>)<[^<]*)*<\/script>/gi, '') // Remove script tags
+    .replace(/<[^>]*>/g, '') // Remove all HTML tags
+    .replace(/javascript:/gi, '') // Remove javascript: protocol
+    .replace(/on\w+\s*=/gi, '') // Remove event handlers
+    .trim();
+};
+
 export const sanitizeInput = (req: Request, res: Response, next: NextFunction) => {
   // Sanitize string fields in body
   if (req.body && typeof req.body === 'object') {
     for (const key in req.body) {
       if (typeof req.body[key] === 'string') {
         // Remove potentially harmful HTML/JS
-        req.body[key] = DOMPurify.sanitize(req.body[key], { 
-          ALLOWED_TAGS: [], 
-          ALLOWED_ATTR: [] 
-        });
-        
-        // Trim whitespace
-        req.body[key] = req.body[key].trim();
+        req.body[key] = sanitizeString(req.body[key]);
       }
     }
   }
@@ -44,11 +47,7 @@ export const sanitizeInput = (req: Request, res: Response, next: NextFunction) =
   if (req.query && typeof req.query === 'object') {
     for (const key in req.query) {
       if (typeof req.query[key] === 'string') {
-        req.query[key] = DOMPurify.sanitize(req.query[key] as string, { 
-          ALLOWED_TAGS: [], 
-          ALLOWED_ATTR: [] 
-        });
-        req.query[key] = (req.query[key] as string).trim();
+        req.query[key] = sanitizeString(req.query[key] as string);
       }
     }
   }
